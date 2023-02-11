@@ -19,4 +19,4 @@ Basic CSS element is loaded from Layout.cshtml, and some specific CSS element ar
 Javascript have shown its capabity to change HTML attribute values (such as the source of the image and the text in the button).
 
 ＃ Video Demonstration
-There is a Demonstration_Web.mp4 for demonstration
+There is a Demonstration.mp4 for demonstration
