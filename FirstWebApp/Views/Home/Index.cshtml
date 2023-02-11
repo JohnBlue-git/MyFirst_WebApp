@@ -1,0 +1,217 @@
+﻿@{
+    /*
+     MVC turial
+     https://www.tutorialsteacher.com/mvc
+     javascript turial
+     https://www.w3schools.com/js/js_intro.asp
+     html helper (bridge among View and Controller)
+     https://www.dotnetodyssey.com/2015/03/24/getting-textbox-input-value-in-asp-net-mvc/
+     */
+
+
+    ViewBag.Title = "Home Page";
+
+    // CSS
+    // turial
+    //https://sites.google.com/site/coolteazhuanti/css/padding
+    // Does CSS have to be in the head?
+    // Most browsers put it anywhere in the page, but just be aware that it only takes effect from that point onwards.Also, it's not valid HTML if you don't put it in the head element.Also, it's considered best practise to put it in the head element as it improves page render times.
+    //
+    // inline style
+    //https://ithelp.ithome.com.tw/articles/10261535
+    // different id with same style
+    //https://netgen.in/apply-same-css-style-to-multiple-ids-controls/
+    <style>
+        #fix {
+            padding-left: 30px;
+        }
+
+        #center {
+            text-align: center;
+        }
+
+        #lineup1, #lineup2, #lineup3 {
+            padding: 30px;
+            display: inline-block;
+        }
+    </style>
+
+    <!-- javascript -->
+    <!-- the same function as: <button onclick="document.getElementById('myImage').src='\\fonts\\pic_bulboff.gif'">Turn off the light</button>-->
+    <script>
+        function Turn() {
+            if (document.getElementById("myBtn").textContent == "Turn off the light") {
+                // not work @@
+                //document.getElementById("myImage").src = @ViewData["pic_off"];
+                document.getElementById("myImage").src = "/fonts/pic_bulboff.gif";
+                document.getElementById("myBtn").textContent = "Turn on the light";
+            }
+            else {
+                //document.getElementById("myImage").src = @ViewData["pic_on"];
+                document.getElementById("myImage").src = "/fonts/pic_bulbon.gif";
+                document.getElementById("myBtn").textContent = "Turn off the light";
+            }
+            return;
+        }
+
+    </script>
+
+    <script>
+        function Player(name) {
+            var rotator = document.getElementById(name);
+            var images = rotator.getElementsByTagName('img');
+            var intervalID;
+            var counter = 1;
+
+            function animate() {
+                var i;
+
+                for (i = 0; i < images.length; i++) {
+                    images[i].style.display = 'none';
+                }
+
+                images[counter].style.display = 'block';
+
+                counter++;
+
+                if (counter == images.length) {
+                    counter = 0;
+                }
+            }
+
+            this.pause = function () {
+                if (undefined !== intervalID) {
+                    window.clearInterval(intervalID);
+                    intervalID = undefined;
+                }
+            };
+
+            this.stop = function () {
+                this.pause();
+
+                for (var i = 1; i < images.length; i++) {
+                    images[i].style.display = 'none';
+                }
+            };
+
+            this.play = function () {
+                if (undefined === intervalID) {
+                    intervalID = window.setInterval(animate, 300);
+                }
+            };
+
+            this.stop();
+            this.currentTime = 0;
+        }
+
+    </script>
+
+    <script>
+        function playimage() {
+            //players.forEach(player => player.play());
+
+            player1.play();
+            player3.play();
+        }
+
+        function pauseimage() {
+            //players.forEach(player => player.pause());
+
+            player1.pause();
+            player3.pause();
+        }
+
+        function stopimage() {
+            //players.forEach(player => player.stop());
+            //players.forEach(player => player.currentTime = 0);
+
+            player1.stop();
+            player3.stop();
+
+            player1.currentTime = 0;
+            player3.currentTime = 0;
+        }
+
+        function Page_Load() {
+            // not work  @@
+            //var pys;
+            //pys.push(Player('1ineup1'));
+            //pys[0].play();
+
+            player1 = new Player('lineup1');
+            player1.play();
+            
+            player3 = new Player('lineup3');
+            window.setTimeout((() => player3.play()), 150);
+        }
+
+        document.onreadystatechange = function () {
+            if ('complete' == document.readyState) {
+                Page_Load();
+            }
+        };
+
+        var player1, player3;
+
+    </script>
+
+    <script>
+        /*
+        // timeout and time interval(some problem @@)
+        //https://kuro.tw/posts/2019/02/23/%E8%AB%87%E8%AB%87-JavaScript-%E7%9A%84-setTimeout-%E8%88%87-setInterval/
+        function on_off() {
+            document.getElementById("Surprise").src = "/fonts/pic_bulboff.gif";
+            window.setTimeout((() => play()), 900);
+            return;
+        }
+
+        //https://www.wibibi.com/info.php?tid=388
+        //window.onload = play();// the same function as onload='...'
+        function play() {
+            document.getElementById("Surprise").src = "/fonts/pic_bulbon.gif";
+            window.setTimeout((() => on_off()), 900);
+            //window.setInterout((() => on_off()), 1000);
+            return;
+        }
+        */
+    </script>
+}
+
+<h2>A Simple Webpage via ASP.NET MVC, JavaScript, HTML, and CSS </h2>
+
+<p>ASP.NET MVC is a framwork that seperate web function into Model, View, and Controller.</p>
+
+<p>HTML is a cross platform language that can represent webpage structure.</p>
+
+<p>CSS is a style sheet language for decoration of HTML elements.</p>
+
+<p>JavaScript can change HTML attribute values (such as the source of the image and the text in the button).</p>
+
+<p></p>
+
+<div id="fix">
+    <div id="lineup1">
+        <img src=@ViewData["pic_off"] style="width:100px">
+        <img src=@ViewData["pic_on"] style="width:100px">
+    </div>
+
+    <div id="lineup2">
+        <img id="myImage" src=@ViewData["pic_default"] style="width:100px">
+    </div>
+
+    <div id="lineup3">
+        <img src=@ViewData["pic_off"] style="width:100px">
+        <img src=@ViewData["pic_on"] style="width:100px">
+    </div>
+</div>
+
+<div style="padding-left: 220px">
+    <button id="myBtn" onclick="Turn()">Turn on the light</button>
+</div>
+
+<!--
+@if (ViewData["surp_html"] != null)
+{
+    <div id="fix">@Html.Raw(ViewData["surp_html"])</div>
+}
+-->
