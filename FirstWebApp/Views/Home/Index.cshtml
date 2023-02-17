@@ -108,41 +108,42 @@
 
     <script>
         function playimage() {
-            //players.forEach(player => player.play());
+            players.forEach(player => player['play']());
 
-            player1.play();
-            player3.play();
+            //player1.play();
+            //player3.play();
         }
 
         function pauseimage() {
-            //players.forEach(player => player.pause());
+            players.forEach(player => player['pause']());
 
-            player1.pause();
-            player3.pause();
+            //player1.pause();
+            //player3.pause();
         }
 
         function stopimage() {
-            //players.forEach(player => player.stop());
-            //players.forEach(player => player.currentTime = 0);
+            players.forEach(player => player['stop']());
+            players.forEach(player => player['currentTime'] = 0);
 
-            player1.stop();
-            player3.stop();
+            //player1.stop();
+            //player3.stop();
 
-            player1.currentTime = 0;
-            player3.currentTime = 0;
+            //player1.currentTime = 0;
+            //player3.currentTime = 0;
         }
 
         function Page_Load() {
-            // not work  @@
-            //var pys;
-            //pys.push(Player('1ineup1'));
-            //pys[0].play();
+            players[0] = new Player('lineup1');
+            players[0]['play']();
 
-            player1 = new Player('lineup1');
-            player1.play();
+            players[1] = new Player('lineup3');
+            window.setTimeout((() => players[1]['play']()), 150);
+
+            //player1 = new Player('lineup1');
+            //player1.play();
             
-            player3 = new Player('lineup3');
-            window.setTimeout((() => player3.play()), 150);
+            //player3 = new Player('lineup3');
+            //window.setTimeout((() => player3.play()), 150);
         }
 
         document.onreadystatechange = function () {
@@ -150,8 +151,9 @@
                 Page_Load();
             }
         };
-
-        var player1, player3;
+        
+        var players = new Array();
+        //var player1, player3;
 
     </script>
 
