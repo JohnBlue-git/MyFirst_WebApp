@@ -36,8 +36,14 @@
         }
     </style>
 
-    <!-- javascript -->
-    <!-- the same function as: <button onclick="document.getElementById('myImage').src='\\fonts\\pic_bulboff.gif'">Turn off the light</button>-->
+    //
+    // Javascript
+    //
+
+    //
+    // Button
+    //
+    // the same function as: <button onclick="document.getElementById('myImage').src='\\fonts\\pic_bulboff.gif'">Turn off the light</button>
     <script>
         function Turn() {
             if (document.getElementById("myBtn").textContent == "Turn off the light") {
@@ -56,6 +62,11 @@
 
     </script>
 
+    //
+    // Play Animation
+    //
+    // method1: define function as class
+    /*
     <script>
         function Player(name) {
             var rotator = document.getElementById(name);
@@ -101,47 +112,122 @@
             };
 
             this.stop();
-            this.currentTime = 0;
         }
 
+    </script>
+    */
+    // method2: class
+    <script>
+        class Player {
+            // var
+            rotator;
+            images;
+            intervalID;
+            counter;
+
+            // constructor
+            constructor(name) {
+                this.rotator = document.getElementById(name);
+                this.images = this.rotator.getElementsByTagName('img');
+                //this.intervalID;
+                this.counter = 1;
+
+                // !!! stop before play
+                this.stop();
+            }
+
+            play_an() {
+                for (let i = 0; i < this.images.length; i++) {
+                    this.images[i].style.display = 'none';
+                }
+
+                this.images[this.counter].style.display = 'block';
+
+                this.counter++;
+
+                if (this.counter == this.images.length) {
+                    this.counter = 0;
+                }
+            }
+
+            pause() {
+                if (undefined !== this.intervalID) {
+                    window.clearInterval(this.intervalID);
+                    this.intervalID = undefined;
+                }
+            }
+
+            stop() {
+                this.pause();
+
+                for (let i = 1; i < this.images.length; i++) {
+                    this.images[i].style.display = 'none';
+                }
+            }
+
+            play() {
+                if (undefined === this.intervalID) {
+                    this.intervalID = window.setInterval(() => (this.play_an)(this), 1000);
+                }
+            } 
+        }
     </script>
 
     <script>
         function playimage() {
-            players.forEach(player => player['play']());
+            // method 2
+            players.forEach(player => player.play());
+            
+            // mehtod 1
+            //players.forEach(player => player['play']());
 
+            // method old
             //player1.play();
             //player3.play();
         }
 
         function pauseimage() {
-            players.forEach(player => player['pause']());
+            // method 2
+            players.forEach(player => player.pause());
+            
+            // method 1
+            //players.forEach(player => player['pause']());
 
+            // method old
             //player1.pause();
             //player3.pause();
         }
 
         function stopimage() {
-            players.forEach(player => player['stop']());
-            players.forEach(player => player['currentTime'] = 0);
+            //method 2
+            players.forEach(player => player.stop());
+            
+            // method 1
+            //players.forEach(player => player['stop']());
 
+            // method old
             //player1.stop();
             //player3.stop();
-
-            //player1.currentTime = 0;
-            //player3.currentTime = 0;
         }
 
         function Page_Load() {
+            // method 2
+            players[0] = new Player('lineup1');
+            players[0].play();
+            players[1] = new Player('lineup3');
+            window.setTimeout((() => players[1].play()), 150);
+
+            // method 1
+            /*
             players[0] = new Player('lineup1');
             players[0]['play']();
-
             players[1] = new Player('lineup3');
             window.setTimeout((() => players[1]['play']()), 150);
-
+            */
+            
+            // method old
             //player1 = new Player('lineup1');
             //player1.play();
-            
             //player3 = new Player('lineup3');
             //window.setTimeout((() => player3.play()), 150);
         }
@@ -152,30 +238,12 @@
             }
         };
         
+        // method 1 & 2
         var players = new Array();
+        
+        // method old
         //var player1, player3;
 
-    </script>
-
-    <script>
-        /*
-        // timeout and time interval(some problem @@)
-        //https://kuro.tw/posts/2019/02/23/%E8%AB%87%E8%AB%87-JavaScript-%E7%9A%84-setTimeout-%E8%88%87-setInterval/
-        function on_off() {
-            document.getElementById("Surprise").src = "/fonts/pic_bulboff.gif";
-            window.setTimeout((() => play()), 900);
-            return;
-        }
-
-        //https://www.wibibi.com/info.php?tid=388
-        //window.onload = play();// the same function as onload='...'
-        function play() {
-            document.getElementById("Surprise").src = "/fonts/pic_bulbon.gif";
-            window.setTimeout((() => on_off()), 900);
-            //window.setInterout((() => on_off()), 1000);
-            return;
-        }
-        */
     </script>
 }
 
@@ -211,7 +279,9 @@
     <button id="myBtn" onclick="Turn()">Turn on the light</button>
 </div>
 
-<!--
+
+
+<!-- if want to use @Html.Raw in the futher
 @if (ViewData["surp_html"] != null)
 {
     <div id="fix">@Html.Raw(ViewData["surp_html"])</div>
