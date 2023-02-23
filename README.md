@@ -1,7 +1,7 @@
 # MyFirst_WebApp
 This is my first MVC application that shows the technique combined HTML, CSS, Javascript, and C# via ASP.NET MVC framework.
 
-＃ Video Demonstration
+# Video Demonstration
 There is a Demonstration.mp4 for demonstration
 
 # Folder strcuture
