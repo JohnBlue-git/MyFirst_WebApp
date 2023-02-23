@@ -1,6 +1,9 @@
 # MyFirst_WebApp
 This is my first MVC application that shows the technique combined HTML, CSS, Javascript, and C# via ASP.NET MVC framework.
 
+＃ Video Demonstration
+There is a Demonstration.mp4 for demonstration
+
 # Folder strcuture
 Content: CSS files
 Controllers: control the action and data flow between View and Backend
@@ -17,6 +20,3 @@ My code are primary in Contollers (HomeController.cs) and Views (Index.cshtml, A
 HTML work as a main page structure that shapes all the action page.
 Basic CSS element is loaded from Layout.cshtml, and some specific CSS element are defined in style block in Index.cshtml.
 Javascript have shown its capabity to change HTML attribute values (such as the source of the image and the text in the button).
-
-＃ Video Demonstration
-There is a Demonstration.mp4 for demonstration
